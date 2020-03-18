@@ -69,7 +69,7 @@ function generateQuestion(){
         }
         message.innerHTML += `<br><iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&layout=box_count&size=large&appId=193116785468625&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>`
 
-        document.querySelectorAll("meta")[4].content = `أحرزتُ ${percentage}% في اختبار كورونا. هل تستطيع التفوق على ذلك؟`
+        document.querySelectorAll("meta")[3].content = `أحرزتُ ${percentage}% في اختبار كورونا. هل تستطيع التفوق على ذلك؟`
     }
     anotherOne.disabled = true;
     anotherOne.style.display="none";
