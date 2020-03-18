@@ -67,6 +67,7 @@ function generateQuestion(){
         case percentage>80 : message.innerHTML = `أبدعت!<br> معلوماتك عن فيروس الكورونا ممتازة. تأكد من مشاركتها مع أصدقائك!`; break;
         case percentage>60 : message.innerHTML = `معلوماتك عن فايروس الكورونا متوسطة، لربما ترغب بـ<a href="/"> ـالمحاولة مرة أخرى</a>.`; break;  
         }
+        message.innerHTML += `<div class="fb-share-button" data-href="https://coronaquiz.herokuapp.com/" data-layout="box_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>`
     }
     anotherOne.disabled = true;
     anotherOne.style.display="none";
@@ -76,10 +77,18 @@ function submitAnswer(that, correct, explained){
     if(correct){
         score++
     }
+    scoreDiv.style = "margin-bottom:0;"
     anotherOne.style.display = "block";
     anotherOne.disabled = false;
-    answers.childNodes.forEach((answer)=>{
-    answer.onclick="";
+    answers.childNodes.forEach((answer,i)=>{
+        answer.onclick = "";
+        
+        if(qbank[currentQuestion].answers[i].correct){
+            answer.classList.add("correct")
+        }else{
+            answer.classList.add("incorrect")
+
+        }
     })
     explanationDiv.innerHTML = explanation;
     scoreDiv.innerHTML = `${score} \\ ${qbank.length}`
@@ -92,3 +101,4 @@ anotherOne.addEventListener("click",()=>{
     currentQuestion ++;
     generateQuestion();
 });
+
