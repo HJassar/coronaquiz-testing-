@@ -67,7 +67,7 @@ function generateQuestion(){
         case percentage>80 : message.innerHTML = `أبدعت!<br> معلوماتك عن فيروس الكورونا ممتازة. تأكد من مشاركتها مع أصدقائك!`; break;
         case percentage>60 : message.innerHTML = `معلوماتك عن فايروس الكورونا متوسطة، لربما ترغب بـ<a href="/"> ـالمحاولة مرة أخرى</a>.`; break;  
         }
-        message.innerHTML += `<div class="fb-share-button" data-href="https://coronaquiz.herokuapp.com/" data-layout="box_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>`
+        message.innerHTML += `<br><iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&layout=box_count&size=large&appId=193116785468625&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>`
     }
     anotherOne.disabled = true;
     anotherOne.style.display="none";
