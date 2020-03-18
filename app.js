@@ -21,7 +21,7 @@ var express     = require("express"),
     app.use(express.static(__dirname+"/public"));
     app.use(bodyParser.urlencoded({extended: true}));
     
-    var urlDatabase = process.env.DATABASE_URL;
+    var urlDatabase = process.env.DATABASE_URL || "mongodb://localhost:27017/corona_quiz";
     mongoose.connect( urlDatabase ,{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false})
     .then(()=>{console.log("connected to: "+ urlDatabase)})
     .catch(err =>{console.log(err.message);});
