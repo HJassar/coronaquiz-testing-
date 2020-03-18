@@ -4,10 +4,12 @@ let
     answers         = document.querySelector("#answers"),
     explanationDiv  = document.querySelector("#explanation"),
     anotherOne      = document.querySelector("#another-one"),
-    scoreDiv        = document.querySelector("#score"),
+    qCount          = document.querySelector("#question-count"),
+    resultInput     = document.querySelector("#result-input"),
     reveal          = document.querySelector("#reveal"),
     message         = document.querySelector("#message"),
-    percentDiv      = document.querySelector("#percentage")
+    percentDiv      = document.querySelector("#percentage"),
+    userInput       = document.querySelector("#user"),
     // Other Vars
     currentQuestion = 0,
     score           = 0,
@@ -54,32 +56,31 @@ function generateQuestion(){
     stem.innerHTML = "";
     explanationDiv.innerHTML="";
     if(currentQuestion < qbank.length){
+        qCount.innerHTML = `${currentQuestion+1} \\ ${qbank.length}`;
         stem.innerHTML = qbank[currentQuestion].stem;
         qbank[currentQuestion].answers.forEach((answer)=>{
             answers.innerHTML += `<li onclick="submitAnswer(this,${answer.correct})">${answer.text}</li>`
         })
         explanation = qbank[currentQuestion].explanation;
     }else{
-        percentage = Math.floor(score/qbank.length*100);
         reveal.style.display = "block";
-        percentDiv.innerHTML =  percentage+"%";
-        switch(true){
-        case percentage>80 : message.innerHTML = `أبدعت!<br> معلوماتك عن فيروس الكورونا ممتازة. تأكد من مشاركتها مع أصدقائك!`; break;
-        case percentage>60 : message.innerHTML = `معلوماتك عن فايروس الكورونا متوسطة، لربما ترغب بـ<a href="/"> ـالمحاولة مرة أخرى</a>.`; break;  
-        }
-        message.innerHTML += `<br><iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&layout=box_count&size=large&appId=193116785468625&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>`
-
-        document.querySelectorAll("meta")[3].content = `أحرزتُ ${percentage}% في اختبار كورونا. هل تستطيع التفوق على ذلك؟`
+        // percentDiv.innerHTML =  percentage+"%";
+        // switch(true){
+        // case percentage>80 : message.innerHTML = `أبدعت!<br> معلوماتك عن فيروس الكورونا ممتازة. تأكد من مشاركتها مع أصدقائك!`; break;
+        // case percentage>60 : message.innerHTML = `معلوماتك عن فايروس الكورونا متوسطة، لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;  
+        // }
+        // message.innerHTML += `<br><br><iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&layout=box_count&size=large&appId=193116785468625&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>`
     }
     anotherOne.disabled = true;
     anotherOne.style.display="none";
 }
 
 function submitAnswer(that, correct, explained){
+    
     if(correct){
         score++
     }
-    scoreDiv.style = "margin-bottom:0;"
+    qCount.style.marginBottom = "0";
     anotherOne.style.display = "block";
     anotherOne.disabled = false;
     answers.childNodes.forEach((answer,i)=>{
@@ -93,8 +94,8 @@ function submitAnswer(that, correct, explained){
         }
     })
     explanationDiv.innerHTML = explanation;
-    scoreDiv.innerHTML = `${score} \\ ${qbank.length}`
-
+    percentage = Math.floor(score/qbank.length*100);
+    resultInput.value = percentage;
 }
 
 // Aaaaaaaand ACTION!

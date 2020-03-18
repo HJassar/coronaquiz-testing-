@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta property="og:url"           content="https://coronaquiz.herokuapp.com/" />
     <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="اختبر معلوماتك حول كورونا!" />
-    <meta property="og:description"   content="Your description" />
+    <meta property="og:title"         content="اختبار كورونا" />
+    <meta property="og:image"         content="/media/coronavirus_Crown.jpg" />
+    <meta property="og:description"   content="ماذا تعرف عن فايروس الكورونا؟ اختبر معلوماتك الآن!" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كورونا!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    
+
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=193116785468625&autoLogAppEvents=1"></script>
     <h1>اختبر معلوماتك حول كورونا!</h1>
@@ -28,11 +32,31 @@
         السؤال التالي
     </button>
     
-    <div id="score"></div>
+    <div id="question-count"></div>
     
     <div id="reveal">
         <h1 id="percentage"></h1>
         <h2 id="message"></h2>
+        <div id="enter-name">
+            <form action="/" method="POST">
+ما هو اسمك الكريم؟           
+<br>
+            <input style="height:2em; width:200px;" type="text" name="user" id="user" required/>
+       <input type="hidden" name="result" id="result-input" value="0" />
+       
+       <br>
+       <button style="
+            border:none;
+            cursor: pointer;
+            width: 205px;
+            height:2.4em;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background: rgba(0,0,255,0.3);">الحصول على النتيجة</button>
+        </form>
+        </div>
+    </div>
     </body>
+    
     <script src="script.js"></script>
     </html>

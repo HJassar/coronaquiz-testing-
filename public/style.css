@@ -11,9 +11,6 @@ body{
 h1{
     text-align: center;
 }
-input{
-    display:none;
-}
 #answers{
     text-align: center;
 }
@@ -40,8 +37,10 @@ li:hover{
     color:black;
     font-weight: bold;
     /* animation: correct 1s 1 alternate; */
-    box-shadow: 0 0 3px 10px goldenrod;
     z-index: 1000;
+    box-shadow: 0 0 3px 10px goldenrod;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 @keyframes correct{
     0%{transform: scale(1.1);}
@@ -60,22 +59,27 @@ li:hover{
     border:none;
     border-radius: 5px;
     background: rgba(0,0,255,0.3);
-    filter: opacity(.2);
-    height: 30vh;
-    top: 35vh;
-    width: 60vw;
-    left: 20vw;
-    font-size: 3em;
+    /* filter: opacity(.2); */
+    height: 75px;
+    width: 150px;
+    bottom: 0;
+    left: 0;
+    font-size: 1.7em;
     color:white;
     transition: 200ms;
+    animation: pulse 300ms  infinite alternate;
         }
-#another-one:hover{
+    @keyframes pulse{
+     0%     {transform: scale(.8);}
+     100%   {transform: scale(1);}   
+    }
+/* #another-one:hover{
     filter: opacity(1);
-}
+} */
 #explanation{
     margin-bottom: 20vh;
 }
-#score{
+#question-count{
     margin-bottom: -45px;
     position:fixed;
     bottom: 0;
@@ -103,6 +107,14 @@ li:hover{
     color: gold;
 }
 
+#enter-name{
+    margin-top:20%;
+}
+
 img{
-    width:100%;
+    height:50vh;
+}
+a{
+    color:gray;
+    /* text-decoration: none; */
 }
