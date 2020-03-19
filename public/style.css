@@ -14,7 +14,7 @@ h1{
 #answers{
     text-align: center;
 }
-li{
+.choice{
     width:85%;
     margin: 2.5px auto;
     padding: 5px;
@@ -29,7 +29,7 @@ li{
     z-index: 0;
     line-height: 1em;
 }
-li:hover{
+.choice:hover{
     background:gold;
 }
 .correct{
@@ -47,7 +47,7 @@ li:hover{
     100%{transform: scale(1);}
 }
 .incorrect{
-    text-decoration: line-through;
+    /* text-decoration: line-through; */
 }
 .incorrect:hover{
     background:white;
@@ -58,16 +58,16 @@ li:hover{
     position: fixed;
     border:none;
     border-radius: 5px;
-    background: rgba(0,0,255,0.3);
+    background: #EBF5F6;
     /* filter: opacity(.2); */
     height: 75px;
     width: 150px;
     bottom: 0;
     left: 0;
-    font-size: 1.7em;
-    color:white;
+    font-size: 1em;
+    color:black;
     transition: 200ms;
-    animation: pulse 300ms  infinite alternate;
+    animation: pulse 1000ms  infinite alternate;
         }
     @keyframes pulse{
      0%     {transform: scale(.8);}
@@ -112,7 +112,7 @@ li:hover{
 }
 
 img{
-    height:50vh;
+   margin:0 auto;
 }
 a{
     color:gray;

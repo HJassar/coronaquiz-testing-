@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta property="og:url"           content="https://coronaquiz.herokuapp.com/" />
+    <meta property="og:url"           content="https://coronaquiz.herokuapp.com/<%= rating %>?score=<%= score %>" />
     <meta property="og:type"          content="website" />
-    <meta property="og:image"         content="/media/coronavirus_Crown.jpg" />
-    <meta property="og:title"         content="اختبار كورونا" />
+    <meta property="og:image"         content="/media/<%= ogImg%>.jpg>" />
+    <meta property="og:title"         content="نتيجتك في اختبار كورونا هي <%= score %>" />
 
-    <meta property="og:description"   content="نسبة معرفة <%= quiz.user %> هي <%= quiz.result %>%. أنت أيضًا تستطيع اختبار معلوماتك هنا" />
+    <meta property="og:description"   content="اختبر معلوماتك عن فايروس الكورونا، وشارك نتيجتك مع الأصدقاء" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتيجتك هي <%= quiz.result%>%</title>
+    <title>نتيجتك في الاختبار</title>
     <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
     <div id="reveal" style="display: block;">
-        <h1 id="percentage">%<%= quiz.result %></h1>
+        <h1 id="percentage">%<%= score %></h1>
         <h2 id="message"><%- message %></h2>
         <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcoronaquiz.herokuapp.com%2F&layout=box_count&size=large&appId=193116785468625&width=77&height=58" width="77" height="58" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
     </div>

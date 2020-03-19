@@ -24,8 +24,7 @@
     </div>
     
     <div id="explanation">
-        <h2>تفاصيل</h2>
-        بالفعل، كورونا فيروس جد خطير!
+        
     </div>
     
     <button id="another-one" >
@@ -34,28 +33,27 @@
     
     <div id="question-count"></div>
     
-    <div id="reveal">
-        <h1 id="percentage"></h1>
-        <h2 id="message"></h2>
-        <div id="enter-name">
+    
+        
             <form action="/" method="POST">
-ما هو اسمك الكريم؟           
-<br>
-            <input style="height:2em; width:200px;" type="text" name="user" id="user" required/>
        <input type="hidden" name="result" id="result-input" value="0" />
-       
-       <br>
-       <button style="
+       <button id="get-result" style="
+            display: none;
             border:none;
             cursor: pointer;
-            width: 205px;
-            height:2.4em;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            background: rgba(0,0,255,0.3);">الحصول على النتيجة</button>
+            width: 300px;
+            height:150px;
+            border-radius: 5px;
+            font-size: 2em;
+            position: fixed;
+            right: calc(50vw - 150px);
+            top: calc(50vh - 75px); 
+            color:white;
+            font-weight: bold;
+            background: rgba(100, 100, 255, 0.3);">الحصول على النتيجة</button>
         </form>
-        </div>
-    </div>
+       
+    
     </body>
     
     <script src="script.js"></script>

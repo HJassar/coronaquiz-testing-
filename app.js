@@ -26,10 +26,6 @@ var express     = require("express"),
     .then(()=>{console.log("connected to: "+ urlDatabase)})
     .catch(err =>{console.log(err.message);});
     
-    //// Temporary
-    Quiz.deleteMany({},(err,deleted)=>{
-        console.log("clear the path");
-    })
 
 
     app.get("/",(req,res)=>{
@@ -38,25 +34,33 @@ var express     = require("express"),
     
 app.post("/",(req,res)=>{
     var result = req.body.result,
-        user   = req.body.user,
-        quiz = {result:result, user:user}
-    Quiz.create(quiz,(err,newQuiz)=>{
-        console.log(newQuiz)
-        res.redirect("/"+newQuiz._id)
-    })
+        // user   = req.body.user,
+        // quiz = {result:result, user:user}
+        rating = ""
+        switch(true){
+            case result>=80 : rating = `jbeliy3hweo`; break;
+            case result>=60 : rating = `njiuh65laeemn`; break;  
+            case result>=40 : rating = `knlihuu55h`; break;  
+            case result<=40 : rating = `i98ouasd`; break;
+            }
+        res.redirect("/"+rating+"?score="+result)
 })
 
-app.get("/:id",(req,res)=>{
-    var id = req.params.id;
+app.get("/:rating",(req,res)=>{
+    var rating = req.params.rating;
+    var score  = req.query.score;
     var message = ""
-    Quiz.findById(id,(err,foundQuiz)=>{
-        switch(true){
-            case foundQuiz.result>80 : message = `أبدعت!<br> معلوماتك عن فيروس الكورونا ممتازة. تأكد من مشاركتها مع أصدقائك!`; break;
-            case foundQuiz.result>60 : message = `معلوماتك عن فايروس الكورونا متوسطة، لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;  
-            }
-        res.render("result",{quiz:foundQuiz, message:message});
+    var ogImg = ""
+    switch(rating){
+        case `jbeliy3hweo`   : ogImg = "excellent"; message = `أبدعت!<br> معلوماتك عن فيروس الكورونا ممتازة. تأكد من مشاركتها مع أصدقائك!<br><a href="/">أجر الاختبار مرة أخرى</a>`; break;
+        case `njiuh65laeemn` : ogImg = "average"; message = `معلوماتك عن فايروس الكورونا متوسطة، لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;  
+        case `knlihuu55h`    : ogImg = "limited"; message = `معلوماتك عن فايروس الكورونا محدودة، لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;
+        case `i98ouasd`      : ogImg = "weak"; message = `معلوماتك عن فايروس الكورونا ضعيفة جدا، ننصحك بالاطلاع على المزيد من المصادر. لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;
+    }
+    // if(!score){res.redirect("/")}
+    res.render("result",{score:score, message:message, rating:rating, ogImg:ogImg});
     })
-})
+
 
 // Listen
 app.listen(port,ip,function(){
