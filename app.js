@@ -34,6 +34,7 @@ var express     = require("express"),
     
 app.post("/",(req,res)=>{
     var result = req.body.result,
+        // newCommer =req.body.newCommer,
         // user   = req.body.user,
         // quiz = {result:result, user:user}
         rating = ""
@@ -57,8 +58,11 @@ app.get("/:rating",(req,res)=>{
         case `knlihuu55h`    : ogImg = "limited"; message = `معلوماتك عن فايروس الكورونا محدودة، لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;
         case `i98ouasd`      : ogImg = "weak"; message = `معلوماتك عن فايروس الكورونا ضعيفة جدا، ننصحك بالاطلاع على المزيد من المصادر. لربما ترغب بـ<a href="/">ـالمحاولة مرة أخرى</a>.`; break;
     }
-    // if(!score){res.redirect("/")}
+    if(!score || req.headers.referer!= process.env.REFERER ){
+        res.redirect("/")
+}else{
     res.render("result",{score:score, message:message, rating:rating, ogImg:ogImg});
+}
     })
 
 
