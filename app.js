@@ -35,17 +35,16 @@ app.get("/generate",(req,res)=>{
     async function generateQuiz(){
         try{
         var quiz = [];
-        await Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
-            questions.forEach(question=>{
-                quiz.push(question._id)
-                console.log(quiz);
-            })    
-        res.send(quiz)
+            await Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
+                questions.forEach(question=>{
+                    quiz.push(question._id)
+                    console.log(quiz);
+                })    
+            res.send(quiz)
         })}catch(err){
             console.log(err)
         }
-    }
-
+    } 
     generateQuiz();
 })
 
