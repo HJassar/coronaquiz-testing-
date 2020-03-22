@@ -38,6 +38,9 @@ var express     = require("express"),
     .catch(err =>{console.log(err.message);});
 
 
+// Question.updateMany({},{ $set: { viewed: 0, answered: 0 }},(err,updatedQuestions)=>{
+
+// })
 
 // app.get("/:something",(req,res)=>{
 //     Question.findById(req.params.something,(err,allQuestions)=>{
@@ -66,30 +69,57 @@ app.get("/generate",(req,res)=>{
 
 app.get("/questions/:id",(req,res)=>{
     var id = req.params.id;
-    Question.findById(id,(err,question)=>{
-        console.log(question)
-        var answerTexts = []
-        question.answers.forEach((answer)=>{
-            answerTexts.push(answer.text)
-        })
-        question.viewed ++;
-        res.send({stem: question.stem, answers: answerTexts})
-    })
+    var newData;
+    async function updateViews(){
+        await   Question.findById(id,(err,question)=>{
+                if(err){console.log(err)}
+                var answerTexts = []
+                question.viewed ++
+                newData = question;
+                question.answers.forEach((answer)=>{
+                    answerTexts.push(answer.text)
+                })
+                res.send({stem: question.stem, answers: answerTexts}) 
+            })
+    
+            Question.findByIdAndUpdate(id,newData,(err,updatedQuestion)=>{
+                console.log(updatedQuestion.viewed)
+            })
+    }
+
+    updateViews();
 })
 
 app.get("/questions/:id/:answer",(req,res)=>{
     var id      = req.params.id;
     var answer  = req.params.answer;
-    Question.findById(id,(err,question)=>{
-        console.log(question.answers[answer])
-        question.answered ++;
-        question.answers[answer].selected;
-        var correct = false;
-        if(question.answers[answer].correct){correct= true}
-        res.send({explanation: question.explanation,
+    var newData;
+    async function updateSelectedAndAnswered(){
+
+        await Question.findById(id,(err,question)=>{
+            console.log(question.answers[answer])
+            question.answered ++;
+            if(!question.answers[answer].selected){
+                question.answers[answer].selected = 1;
+            }else{
+                question.answers[answer].selected ++;
+            }
+            var correct = false;
+            if(question.answers[answer].correct){correct= true}
+            res.send({explanation: question.explanation,
                     answers: question.answers,
-                correct:correct})
-    })
+                    correct:correct})
+            newData = question;
+        })
+
+        Question.findByIdAndUpdate(id,newData,(err,updated)=>{
+            setTimeout(()=>{console.log(updated)},3000);
+        })
+
+    }
+    
+    updateSelectedAndAnswered();
+
 })
 
 app.get("/",(req,res)=>{

@@ -83,7 +83,7 @@ function submitAnswer(that, url, selectedOrder){
             return response.json();
         })
         .then(function(data){
-            console.log(data)
+
             explanationDiv.innerHTML = `<h2>
                                 التفاصيل
                                 </h2>
@@ -91,7 +91,7 @@ function submitAnswer(that, url, selectedOrder){
             if(data.answers[selectedOrder].correct){
                 score ++
             }
-        console.log(score)
+        
         
         if(!data.correct){that.style = "background:red"}
         
