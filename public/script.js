@@ -30,7 +30,7 @@ fetch("/generate",{
     })
     .then(function(data){
        qbank = data;
-       generateQuestion()
+       
     }).catch(function(){
         console.log("err");
 })
@@ -113,7 +113,7 @@ function submitAnswer(that, url, selectedOrder){
 
 // Aaaaaaaand ACTION!
 setTimeout(()=>{
-    
+    generateQuestion()
     console.log(qbank)
 },2000);
 
