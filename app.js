@@ -36,8 +36,8 @@ app.get("/generate",(req,res)=>{
     Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
         questions.forEach(question=>{
             quiz.push(question._id)
-        })
-        console.log(quiz);
+            console.log(quiz);
+        })    
         res.send(quiz)
     })
 })
