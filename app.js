@@ -32,14 +32,17 @@ var express     = require("express"),
     .catch(err =>{console.log(err.message);});
     
 app.get("/generate",(req,res)=>{
-    var quiz =[];
-    Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
-        questions.forEach(question=>{
-            quiz.push(question._id)
-            console.log(quiz);
-        })    
-        res.send(quiz)
-    })
+    var quiz = [];
+    async function generateQuiz(){
+        await Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
+            questions.forEach(question=>{
+                quiz.push(question._id)
+                console.log(quiz);
+            })    
+            res.send(quiz)
+        })
+    }
+    generateQuiz();
 })
 
 app.get("/questions/:id",(req,res)=>{
