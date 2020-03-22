@@ -10,11 +10,16 @@ var express     = require("express"),
     ip          = process.env.IP;
 
     
-    var quizSchema = new mongoose.Schema({
-        user    : String,
-        result  : Number
+    var questionSchema = new mongoose.Schema({
+        stem        : String,
+        answers     : [{
+            text: String,
+            correct: Boolean,
+            selected: {type: Number, default: 0}
+            }],
+        explanation : String
     })
-    var Quiz = mongoose.model("Quiz", quizSchema);
+    var Question = mongoose.model("Question", questionSchema);
     
     // Warming up
     app.set("view engine","ejs");
@@ -26,11 +31,45 @@ var express     = require("express"),
     .then(()=>{console.log("connected to: "+ urlDatabase)})
     .catch(err =>{console.log(err.message);});
     
-
-
-    app.get("/",(req,res)=>{
-        res.render("index");
+app.get("/generate",(req,res)=>{
+    var quiz =[];
+    Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
+        questions.forEach(question=>{
+            quiz.push(question._id)
+        })
+        console.log(quiz);
+        res.send(quiz)
     })
+})
+
+app.get("/questions/:id",(req,res)=>{
+    var id = req.params.id;
+    Question.findById(id,(err,question)=>{
+        console.log(question)
+        var answerTexts = []
+        question.answers.forEach((answer)=>{
+            answerTexts.push(answer.text)
+        })
+        res.send({stem: question.stem, answers: answerTexts})
+    })
+})
+
+app.get("/questions/:id/:answer",(req,res)=>{
+    var id      = req.params.id;
+    var answer  = req.params.answer;
+    Question.findById(id,(err,question)=>{
+        console.log(question.answers[answer])
+        var correct = false;
+        if(question.answers[answer].correct){correct= true}
+        res.send({explanation: question.explanation,
+                    answers: question.answers,
+                correct:correct})
+    })
+})
+
+app.get("/",(req,res)=>{
+    res.render("index");
+})
     
 app.post("/",(req,res)=>{
     var result = req.body.result,

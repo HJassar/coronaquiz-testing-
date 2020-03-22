@@ -113,6 +113,7 @@ h1{
 
 img{
    margin:0 auto;
+   max-width: 100%;
 }
 a{
     color:gray;
