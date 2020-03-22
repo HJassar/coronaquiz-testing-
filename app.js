@@ -11,6 +11,8 @@ var express     = require("express"),
 
     
     var questionSchema = new mongoose.Schema({
+        viewed      : {type: Number, default: 0},
+        answered    : {type: Number, default: 0},
         stem        : String,
         answers     : [{
             text: String,
@@ -70,6 +72,7 @@ app.get("/questions/:id",(req,res)=>{
         question.answers.forEach((answer)=>{
             answerTexts.push(answer.text)
         })
+        question.viewed ++;
         res.send({stem: question.stem, answers: answerTexts})
     })
 })
@@ -79,6 +82,8 @@ app.get("/questions/:id/:answer",(req,res)=>{
     var answer  = req.params.answer;
     Question.findById(id,(err,question)=>{
         console.log(question.answers[answer])
+        question.answered ++;
+        question.answers[answer].selected;
         var correct = false;
         if(question.answers[answer].correct){correct= true}
         res.send({explanation: question.explanation,
