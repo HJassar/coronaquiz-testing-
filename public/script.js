@@ -20,24 +20,24 @@ let
 // let's formulate the qbank
 // var qbank = ["5e768bc9a69eb843d42d4de4", "5e768bc9a69eb843d42d4de0", "5e768bc9a69eb843d42d4de9", "5e768bc9a69eb843d42d4ddc", "5e768bc9a69eb843d42d4dee"]
 
-var theQbank= [];
 
-var generateQuiz = new Promise((resolve)=>{
+var theBank = [];
+    
+const getQuiz = new Promise((resolve)=>{
     fetch("/generate",{
-        method:'get'
+    method:'get'
+})
+    .then(function(response){
+        return response.json();
     })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            theQbank = data;
-            resolve(data);
-            
-        }).catch(function(){
-            console.log("err");
-    })
+    .then(function(data){
+        resolve(data);
+    }).catch(function(){
+        console.log("err");
+})
 })
     
+
 function generateQuestion(qbank){
     answersDiv.innerHTML = "";
     stem.innerHTML = "";
@@ -70,9 +70,9 @@ function generateQuestion(qbank){
     resultInput.value = percentage;
 }
 
-generateQuiz.then((qbank)=>{
-    // console.log(qbank)
-    generateQuestion(qbank);
+getQuiz.then((data)=>{
+    theBank = data;
+    generateQuestion(data);
 })
 
 function submitAnswer(that, url, selectedOrder){
@@ -110,19 +110,13 @@ function submitAnswer(that, url, selectedOrder){
     
     qCount.style.marginBottom = "0";
     anotherOne.style.display = "block";
-    anotherOne.disabled = false;
-    
-    
+    anotherOne.disabled = false;    
 }
 
-// Aaaaaaaand ACTION!
-// setTimeout(()=>{
-//     generateQuestion()
-//     console.log(qbank)
-// },2000);
 
+// Aaaaaaaand ACTION!
 anotherOne.addEventListener("click",()=>{
     currentQuestion ++;
-    generateQuestion(theQbank);
+    generateQuestion(theBank)
 });
 

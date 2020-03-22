@@ -20,26 +20,40 @@ var express     = require("express"),
         explanation : String
     })
     var Question = mongoose.model("Question", questionSchema);
+ 
     
+
     // Warming up
     app.set("view engine","ejs");
     app.use(express.static(__dirname+"/public"));
     app.use(bodyParser.urlencoded({extended: true}));
     
-    var urlDatabase = process.env.DATABASE_URL || "mongodb://localhost:27017/corona_quiz";
+
+    // Connecting the DB
+    var urlDatabase =  process.env.DATABASE_URL || "mongodb://localhost:27017/corona_quiz";
     mongoose.connect( urlDatabase ,{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false})
     .then(()=>{console.log("connected to: "+ urlDatabase)})
     .catch(err =>{console.log(err.message);});
-    
+
+
+
+// app.get("/:something",(req,res)=>{
+//     Question.findById(req.params.something,(err,allQuestions)=>{
+//         console.log("hi: "+ allQuestions)
+//         // res.send(allQuestions)
+//     })
+// })
+
 app.get("/generate",(req,res)=>{
+    var quiz = [];
     async function generateQuiz(){
         try{
-        var quiz = [];
             await Question.aggregate([{ $sample: { size: 10 } }],(err,questions)=>{
                 questions.forEach(question=>{
                     quiz.push(question._id)
-                    console.log(quiz);
-                })    
+                    // console.log(quiz);
+                })
+            console.log(quiz)    
             res.send(quiz)
         })}catch(err){
             console.log(err)
