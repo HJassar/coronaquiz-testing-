@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body{direction: rtl;}
+    input[type="text"]{width:90%;}
+    </style>
+</head>
+
+<body>
+    <form action="/questions/<%= question._id%>?_method=PUT" method="post">
+    
+    
+    <textarea name="question[stem]" id="" cols="30" rows="10"
+    ><%= question.stem %>
+    </textarea>
+<br>
+<div id="answers">
+    <% for (var i = 0; i<10; i++){ %>
+        <input type="text" name="question[answers][<%=i%>][text]"  id=""
+        value=
+        <%if(question.answers[i] ){%>
+        "<%=question.answers[i].text%>"
+        <%}else{%>
+        ""
+        <%}%>
+        > 
+        <input type="checkbox" name="question[answers][<%=i%>][correct]" size="5" id=""
+            <% if(question.answers[i] && question.answers[i].correct){ %>
+                checked
+             <% } %>
+        >
+        <br>
+    <%}%>
+</div>
+    <!-- <script>
+    var count = <%= question.answers.length %>
+    var answerDiv = document.querySelector("#answers")
+    var moreAnswers = "";
+    for(count; count < 10; count++){
+        moreAnswers += `
+            <input type="text" name="question[answers][${count}][text]" size=100 id=""
+            value=""> 
+            <input type="checkbox" name="question[answers][${count}][correct]" size="5" id="">
+            <br>
+            `
+            console.log(count)
+    }
+    answerDiv.innerHTML += moreAnswers;
+    </script> -->
+
+    
+
+<br>
+
+
+    <br>
+    <textarea name="question[explanation]" id="" cols="30" rows="10"
+    ><%= question.explanation %>
+    </textarea>
+
+
+   <br> <button>تحديث</button>
+</form>
+    
+</body>
+</html>

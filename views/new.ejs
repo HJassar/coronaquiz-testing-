@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>body{direction: rtl;}</style>
+</head>
+
+<body>
+    <form action="/questions" method="post">
+    
+    
+    <textarea name="question[stem]" id="" cols="30" rows="10"
+    ></textarea>
+<br>
+<div id="answers">
+    
+</div>
+    <script>
+    var answerDiv = document.querySelector("#answers")
+    var moreAnswers = "";
+    for(var count=0; count < 10; count++){
+        moreAnswers += `
+            <input type="text" name="question[answers][${count}][text]" size=100 id=""
+            > 
+            <input type="text" name="question[answers][${count}][correct]" size="5" id=""
+           >
+            <br>
+            `
+    }
+    console.log(moreAnswers)
+    answerDiv.innerHTML += moreAnswers;
+    </script>
+
+    
+
+<br>
+
+
+    <br>
+    <textarea name="question[explanation]" id="" cols="30" rows="10"
+    ></textarea>
+
+
+   <br> <button>سؤال جديد</button>
+</form>
+    
+</body>
+</html>
